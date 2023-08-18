@@ -2,11 +2,9 @@ const TronWeb = require('tronweb');
 
 class Tron {
 
-    constructor(node, apikey, keys) {
-        const HttpProvider = TronWeb.providers.HttpProvider;
-        const fullNode = new HttpProvider(node);
-        this.mainTronWeb = new TronWeb(fullNode, fullNode, fullNode, keys);
-		this.mainTronWeb.setHeader({ "TRON-PRO-API-KEY": apikey });
+    constructor(node, apikey) {
+        this.mainTronWeb = new TronWeb(node, node, node);
+	this.mainTronWeb.setHeader({ "TRON-PRO-API-KEY": apikey });
     }
 
     async coinBalance(address) {
@@ -33,17 +31,17 @@ class Tron {
         }
     } 
 
-    async totalSupply(token) {
-        try{
-            const tokenContract = await this.mainTronWeb.contract().at(token);
-            const totalSupplyInWei = await tokenContract.totalSupply().call();
-            let totalSupply =  this.mainTronWeb.fromSun(totalSupplyInWei);
-            return nResult(totalSupply);
-        }
-        catch(e){
+	async totalSupply(token) {
+		try{
+			const tokenContract = await this.mainTronWeb.contract().at(token);
+			const totalSupplyInWei = await tokenContract.totalSupply().call();
+			let totalSupply =  this.mainTronWeb.fromSun(totalSupplyInWei);
+			return nResult(totalSupply);
+		}
+		catch(e){
 			return nError(e);
-        }
-    }   
+		}
+	}   
      
 }
 module.exports = Tron;
@@ -62,13 +60,4 @@ function nResult(r) {
         message: r
     };	
     return response;    
-}
-
-function toPlainNum(num) {
-    return (''+ +num).replace(/(-?)(\d*)\.?(\d*)e([+-]\d+)/,
-    function(a,b,c,d,e) {
-    return e < 0
-        ? b + '0.' + Array(1-e-c.length).join(0) + c + d
-        : b + c + d + Array(e-d.length+1).join(0);
-    });
 }
