@@ -2,7 +2,8 @@ const TronWeb = require('tronweb');
 
 class Tron {
 
-    constructor(node, apikey) {
+    constructor(apikey) {
+        const node = "https://api.trongrid.io";
         this.mainTronWeb = new TronWeb(node, node, node);
         this.mainTronWeb.setHeader({
             "TRON-PRO-API-KEY": apikey
