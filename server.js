@@ -18,10 +18,10 @@ const fullNode = 'https://api.trongrid.io'; //mainnet
 app.get("/getTrxBalance", async function(req, res, next) {
 	try {	
 		let errors=[];
-		if (!req.body.apikey){
+		if (!req.query.apikey){
 			errors.push("No apikey specified");
 		}        
-		if (!req.body.address){
+		if (!req.query.address){
 			errors.push("No address specified");
 		}		
 		if (errors.length){
@@ -47,13 +47,13 @@ app.get("/getTrxBalance", async function(req, res, next) {
 app.get("/getTrc20Balance", async function(req, res, next) {
 	try {	
 		let errors=[];
-		if (!req.body.apikey){
+		if (!req.query.apikey){
 			errors.push("No apikey specified");
 		}  
-		if (!req.body.token){
+		if (!req.query.token){
 			errors.push("No token specified");
 		}                
-		if (!req.body.address){
+		if (!req.query.address){
 			errors.push("No address specified");
 		}
 		if (errors.length){
@@ -80,10 +80,10 @@ app.get("/getTrc20Balance", async function(req, res, next) {
 app.get("/getTotalSupply", async function(req, res, next) {
 	try {	
 		let errors=[];
-		if (!req.body.apikey){
+		if (!req.query.apikey){
 			errors.push("No apikey specified");
 		}  
-		if (!req.body.token){
+		if (!req.query.token){
 			errors.push("No token specified");
 		}                
 		if (errors.length){
