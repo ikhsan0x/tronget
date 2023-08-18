@@ -28,7 +28,7 @@ class Tron {
             const balanceWei = await tokenContract.balanceOf(address).call();
             const decimal = await tokenContract.decimals().call();
             const balanceFromWei = toPlainNum( this.mainTronWeb.toBigNumber(balanceWei) )
-            const balanceInToken = this.mainTronWeb.fromSun(balanceFromWei.div(Math.pow(10, decimal)));
+            const balanceInToken = balanceFromWei / Math.pow(10, decimal);
             return nResult(balanceInToken);
         }
         catch (e) {
