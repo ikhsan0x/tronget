@@ -41,8 +41,9 @@ class Tron {
             this.mainTronWeb.setAddress(token);
             const tokenContract = await this.mainTronWeb.contract().at(token);
             const totalSupplyInWei = await tokenContract.totalSupply().call();
+            const decimal = await tokenContract.decimals().call();
             let balanceFromWei = toPlainNum( this.mainTronWeb.toBigNumber(totalSupplyInWei) )
-            let totalSupply = this.mainTronWeb.fromSun(balanceFromWei);
+            let totalSupply = balanceFromWei / Math.pow(10, decimal);
             return nResult(totalSupply);
         }
         catch (e) {
