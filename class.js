@@ -2,10 +2,10 @@ const TronWeb = require('tronweb');
 
 class Tron {
 
-    constructor(node, apikey) {
+    constructor(node, apikey, keys) {
         const HttpProvider = TronWeb.providers.HttpProvider;
         const fullNode = new HttpProvider(node);
-        this.mainTronWeb = new TronWeb(fullNode, fullNode, fullNode);
+        this.mainTronWeb = new TronWeb(fullNode, fullNode, fullNode, keys);
 		this.mainTronWeb.setHeader({ "TRON-PRO-API-KEY": apikey });
     }
 
