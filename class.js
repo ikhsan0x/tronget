@@ -23,6 +23,7 @@ class Tron {
 
     async tokenBalance(token, address) {
         try {
+            this.mainTronWeb.setAddress(address);
             const tokenContract = await this.mainTronWeb.contract().at(token);
             const balanceWei = await tokenContract.balanceOf(address).call();
             const decimal = await tokenContract.decimals().call();
