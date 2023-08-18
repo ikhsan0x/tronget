@@ -38,6 +38,7 @@ class Tron {
 
     async totalSupply(token) {
         try {
+            this.mainTronWeb.setAddress(token);
             const tokenContract = await this.mainTronWeb.contract().at(token);
             const totalSupplyInWei = await tokenContract.totalSupply().call();
             let totalSupply = this.mainTronWeb.fromSun(totalSupplyInWei);
