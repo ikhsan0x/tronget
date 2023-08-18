@@ -27,7 +27,8 @@ class Tron {
             const tokenContract = await this.mainTronWeb.contract().at(token);
             const balanceWei = await tokenContract.balanceOf(address).call();
             const decimal = await tokenContract.decimals().call();
-            const balanceInToken = this.mainTronWeb.fromSun(balanceWei.div(Math.pow(10, decimal)));
+            const balanceFromWei = toPlainNum( this.mainTronWeb.toBigNumber(balanceWei) )
+            const balanceInToken = this.mainTronWeb.fromSun(balanceFromWei.div(Math.pow(10, decimal)));
             return nResult(balanceInToken);
         }
         catch (e) {
@@ -64,4 +65,13 @@ function nResult(r) {
         message: r
     };
     return response;
+}
+
+function toPlainNum(num) {
+    return (''+ +num).replace(/(-?)(\d*)\.?(\d*)e([+-]\d+)/,
+    function(a,b,c,d,e) {
+    return e < 0
+        ? b + '0.' + Array(1-e-c.length).join(0) + c + d
+        : b + c + d + Array(e-d.length+1).join(0);
+    });
 }
