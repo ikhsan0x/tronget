@@ -20,10 +20,7 @@ app.get("/getTrxBalance", async function(req, res, next) {
 		let errors=[];
 		if (!req.query.apikey){
 			errors.push("No apikey specified");
-		}  
-		if (!req.query.pkey){
-			errors.push("No privateKey specified");
-		}		
+		}  		
 		if (!req.query.address){
 			errors.push("No address specified");
 		}		
@@ -33,10 +30,9 @@ app.get("/getTrxBalance", async function(req, res, next) {
 		}		
 
         	let apikey = req.query.apikey;
-		let pkey = req.query.pkey;
 		let address = req.query.address;
 
-		const trons = new Tron(fullNode, apikey, pkey);
+		const trons = new Tron(fullNode, apikey);
 		let result = await trons.coinBalance(address);
 
 		res.json(result);
@@ -53,10 +49,7 @@ app.get("/getTrc20Balance", async function(req, res, next) {
 		let errors=[];
 		if (!req.query.apikey){
 			errors.push("No apikey specified");
-		} 
-		if (!req.query.pkey){
-			errors.push("No privateKey specified");
-		}		
+		} 		
 		if (!req.query.token){
 			errors.push("No token specified");
 		}                
@@ -69,11 +62,10 @@ app.get("/getTrc20Balance", async function(req, res, next) {
 		}		
 
         	let apikey = req.query.apikey;
-		let pkey = req.query.pkey;
 		let token = req.query.token;
 		let address = req.query.address;
 
-		const trons = new Tron(fullNode, apikey, pkey);
+		const trons = new Tron(fullNode, apikey);
 		let result = await trons.tokenBalance(token, address);
 
 		res.json(result);
@@ -90,10 +82,7 @@ app.get("/getTotalSupply", async function(req, res, next) {
 		let errors=[];
 		if (!req.query.apikey){
 			errors.push("No apikey specified");
-		} 
-		if (!req.query.pkey){
-			errors.push("No privateKey specified");
-		}		
+		} 		
 		if (!req.query.token){
 			errors.push("No token specified");
 		}                
@@ -103,10 +92,9 @@ app.get("/getTotalSupply", async function(req, res, next) {
 		}		
 
         	let apikey = req.query.apikey;
-		let pkey = req.query.pkey;
 		let token = req.query.token;
 
-		const trons = new Tron(fullNode, apikey, pkey);
+		const trons = new Tron(fullNode, apikey);
 		let result = await trons.totalSupply(token);
 
 		res.json(result);
